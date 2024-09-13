@@ -1,0 +1,37 @@
+# Directorios y archivos que se deben ignorar
+
+node_modules/
+package-lock.json
+npm-debug.log
+
+# Archivos de configuración y dependencias
+config/
+env/
+.babelrc
+.eslintrc
+.jest/
+.jscsrc
+.tsconfig.json
+
+# Archivos de compilación y caché
+build/
+dist/
+tmp/
+
+# Archivos de log y depuración
+logs/
+debug.log
+.error.log
+
+# Archivos de prueba y cobertura
+test/
+coverage/
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Otros archivos que no son relevantes para el proyecto
+*.log
+*.tmp
+*.backup
