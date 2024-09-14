@@ -12,6 +12,7 @@ env/
 .jest/
 .jscsrc
 .tsconfig.json
+.env
 
 # Archivos de compilación y caché
 build/
