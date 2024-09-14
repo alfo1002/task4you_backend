@@ -20,3 +20,6 @@ npm i mongoose dotenv
 
 npm run dev
 
+
+# Documentación:
+Mongoose: [text](https://mongoosejs.com/docs/schematypes.html)
