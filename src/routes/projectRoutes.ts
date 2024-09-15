@@ -22,5 +22,9 @@ router.put('/:id',
     body('description').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }),
     handleInputErrors,
     ProjectController.updateProject)
+router.delete('/:id',
+    param('id').isMongoId().withMessage('Id no válido'),
+    handleInputErrors,
+    ProjectController.deleteProject)
 
 export default router
