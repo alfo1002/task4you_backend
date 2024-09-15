@@ -17,6 +17,9 @@ npm i -D @types/express
 npm i -D nodemo
 npm i colors
 npm i mongoose dotenv
+#validaciones
+npm i express-validator
+
 
 npm run dev
 
