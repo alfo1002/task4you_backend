@@ -16,5 +16,11 @@ router.get('/:id',
     param('id').isMongoId().withMessage('Id no válido'),
     handleInputErrors,
     ProjectController.getProjectById)
+router.put('/:id',
+    body('projectName').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }).withMessage('Debe tener al menos 5 caracteres'),
+    body('clientName').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }),
+    body('description').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }),
+    handleInputErrors,
+    ProjectController.updateProject)
 
 export default router
