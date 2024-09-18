@@ -32,6 +32,9 @@ router.delete('/:id',
 /** Routes for tasks */
 router.post('/:projectId/tasks',
     validateProjectExists,
+    body('name').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }).withMessage('Debe tener al menos 5 caracteres'),
+    body('description').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }).withMessage('Debe tener al menos 5 caracteres'),
+    handleInputErrors,
     TaskController.createTask
 )
 
