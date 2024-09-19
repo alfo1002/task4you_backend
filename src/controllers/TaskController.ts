@@ -56,4 +56,22 @@ export class TaskController {
             res.status(500).json({ message: error.message })
         }
     }
+
+    static deleteTask = async (req: Request, res: Response) => {
+        try {
+            const task = await Task.findById(req.params.taskId)
+            if (!task) {
+                return res.status(404).json({ message: 'Tarea no encontrada' })
+            }
+            if (task.project.toString() !== req.project.id) {
+                return res.status(404).json({ message: 'Tarea no coincide con Proyecto' })
+            }
+            req.project.tasks = req.project.tasks.filter(taskId => taskId.toString() !== req.params.taskId)
+            await Promise.allSettled([task.deleteOne(), req.project.save()])
+            res.send('Tarea Eliminada Exitosamente')
+        } catch (error) {
+            res.status(500).json({ message: error.message })
+        }
+    }
+
 }
