@@ -9,7 +9,7 @@ export class ProjectController {
             await project.save()
             res.send('Proyecto creado')
         } catch (e) {
-            console.log(e)
+            res.status(500).json({ msg: e.message })
         }
     }
 
@@ -18,19 +18,19 @@ export class ProjectController {
             const projects = await Project.find()
             res.json(projects)
         } catch (e) {
-            console.log(e)
+            res.status(500).json({ msg: e.message })
         }
     }
 
     static getProjectById = async (req: Request, res: Response) => {
         try {
-            const project = await Project.findById(req.params.id)
+            const project = await Project.findById(req.params.id).populate('tasks')
             if (!project) {
                 return res.status(404).json({ msg: 'Proyecto no encontrado' })
             }
             res.json(project)
         } catch (e) {
-            console.log(e)
+            res.status(500).json({ msg: e.message })
         }
     }
 
@@ -44,7 +44,7 @@ export class ProjectController {
             await project.save()
             res.send('Proyecto actualizado')
         } catch (e) {
-            console.log(e)
+            res.status(500).json({ msg: e.message })
         }
     }
 
@@ -58,7 +58,7 @@ export class ProjectController {
             await project.deleteOne()
             res.send('Proyecto eliminado')
         } catch (e) {
-            console.log(e)
+            res.status(500).json({ msg: e.message })
         }
     }
 
