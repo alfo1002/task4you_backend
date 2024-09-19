@@ -30,8 +30,11 @@ router.delete('/:id',
     ProjectController.deleteProject)
 
 /** Routes for tasks */
+//Validar Project Exists en todas las rutas de tareas que contenga el projectId
+router.param('projectId', validateProjectExists)
+
 router.post('/:projectId/tasks',
-    validateProjectExists,
+    //validateProjectExists,
     body('name').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }).withMessage('Debe tener al menos 5 caracteres'),
     body('description').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }).withMessage('Debe tener al menos 5 caracteres'),
     handleInputErrors,
@@ -39,12 +42,14 @@ router.post('/:projectId/tasks',
 )
 
 router.get('/:projectId/tasks',
-    validateProjectExists,
+    //validateProjectExists,
     TaskController.getTasks
 )
 
 router.get('/:projectId/tasks/:taskId',
-    validateProjectExists,
+    //validateProjectExists,
+    param('taskId').isMongoId().withMessage('Id no válido'),
+    handleInputErrors,
     TaskController.getTaskById
 )
 
