@@ -74,4 +74,24 @@ export class TaskController {
         }
     }
 
+    static updateTaskStatus = async (req: Request, res: Response) => {
+        try {
+            const { taskId } = req.params
+            const task = await Task.findById(taskId)
+            if (!task) {
+                return res.status(404).json({ message: 'Tarea no encontrada' })
+            }
+
+            if (task.project.toString() !== req.project.id) {
+                return res.status(404).json({ message: 'Tarea no coincide con Proyecto' })
+            }
+            const { status } = req.body
+            task.status = status
+            await task.save()
+            res.send('Estado de Tarea Actualizado Correctamente')
+        } catch (error) {
+            res.status(500).json({ message: error.message })
+        }
+    }
+
 }
