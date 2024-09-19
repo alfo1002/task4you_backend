@@ -53,4 +53,13 @@ router.get('/:projectId/tasks/:taskId',
     TaskController.getTaskById
 )
 
+router.put('/:projectId/tasks/:taskId',
+    //validateProjectExists,
+    param('taskId').isMongoId().withMessage('Id no válido'),
+    body('name').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }).withMessage('Debe tener al menos 5 caracteres'),
+    body('description').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }).withMessage('Debe tener al menos 5 caracteres'),
+    handleInputErrors,
+    TaskController.updateTask
+)
+
 export default router
