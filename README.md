@@ -24,5 +24,10 @@ npm i express-validator
 npm run dev
 
 
+# Cors
+npm i cors
+npm i -D @types/cors
+
+
 # Documentación:
 Mongoose: [text](https://mongoosejs.com/docs/schematypes.html)
