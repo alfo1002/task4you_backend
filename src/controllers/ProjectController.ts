@@ -6,6 +6,7 @@ export class ProjectController {
     static createProject = async (req: Request, res: Response) => {
         const project = new Project(req.body)
         try {
+            console.log("Ingresando a crear")
             await project.save()
             res.send('Proyecto creado')
         } catch (e) {

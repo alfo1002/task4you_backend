@@ -28,6 +28,10 @@ npm run dev
 npm i cors
 npm i -D @types/cors
 
+# Morgan
+npm i morgan
+npm i -D @types/morgan
+
 
 # Documentación:
 Mongoose: [text](https://mongoosejs.com/docs/schematypes.html)
