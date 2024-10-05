@@ -32,6 +32,9 @@ npm i -D @types/cors
 npm i morgan
 npm i -D @types/morgan
 
+# BCRYPT
+npm i bcrypt
+
 
 # Documentación:
 Mongoose: [text](https://mongoosejs.com/docs/schematypes.html)
