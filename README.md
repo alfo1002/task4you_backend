@@ -35,6 +35,8 @@ npm i -D @types/morgan
 # BCRYPT
 npm i bcrypt
 
+# NODEMAILER
+npm i nodemailer
 
 # Documentación:
 Mongoose: [text](https://mongoosejs.com/docs/schematypes.html)
