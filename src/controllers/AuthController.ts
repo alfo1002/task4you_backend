@@ -58,4 +58,38 @@ export class AuthController {
             res.status(500).json({ error: 'Hubo un error' })
         }
     }
+
+    static login = async (req: Request, res: Response) => {
+        try {
+            const { email, password } = req.body
+            const user = await User.findOne({ email })
+            if (!user) {
+                return res.status(404).json({ error: 'Credenciales inválidas' })
+            }
+            if (!user.confirmed) {
+                const token = new Token()
+                token.user = user.id
+                token.token = generateToken()
+                await token.save()
+
+                //enviar email
+                AuthEmail.sendConfirmationEmail({
+                    email: user.email,
+                    token: token.token,
+                    name: user.name
+                })
+                return res.status(401).json({ error: 'Cuenta no Confirmada, se envio nuevo token' })
+            }
+
+            // Comparar password
+            const isCorrectPassword = await bcrypt.compare(password, user.password)
+            if (!isCorrectPassword) {
+                return res.status(404).json({ error: 'Credenciales inválidas' })
+            }
+            res.send("Login Correcto")
+
+        } catch (error) {
+            res.status(500).json({ error: 'Hubo un error' })
+        }
+    }
 }

@@ -27,5 +27,11 @@ router.post('/confirm-account',
     AuthController.confirmAccount
 )
 
+router.post('/login',
+    body('email').isEmail().withMessage('El email no es válido'),
+    body('password').isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres'),
+    handleInputErrors,
+    AuthController.login
+)
 
 export default router
