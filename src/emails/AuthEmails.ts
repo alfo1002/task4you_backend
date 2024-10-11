@@ -24,4 +24,20 @@ export class AuthEmail {
         })
     }
 
+    static sendPasswordResetToken = async (user: IEmail) => {
+        await transporter.sendMail({
+            from: 'Task4you <admin@task4you.com>',
+            to: user.email,
+            subject: 'Restablece tu password - Task4you',
+            text: `Restablecimiento de Password`,
+            html: `<p>Hola: ${user.name}, has solicitado restablecer tu contraseña,</p>
+            <p>Visita el siguiente enlace:</p>
+            <a href="${process.env.FRONTEND_URL}/auth/new-password">Restablecer Password</a>
+            <p>Ingresa el codigo: <b>${user.token}</b></p>
+            <p>Este token expira en 10 min</p>
+            `
+
+        })
+    }
+
 }
