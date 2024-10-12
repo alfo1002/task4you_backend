@@ -4,10 +4,12 @@ import { ProjectController } from "../controllers/ProjectController";
 import { handleInputErrors } from "../middleware/validation";
 import { TaskController } from "../controllers/TaskController";
 import { validateProjectExists } from "../middleware/projects";
+import { authenticate } from "../middleware/auth";
 
 const router = Router();
 
 router.post('/',
+    authenticate,
     body('projectName').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }).withMessage('Debe tener al menos 5 caracteres'),
     body('clientName').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }),
     body('description').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }),
