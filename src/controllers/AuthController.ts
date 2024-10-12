@@ -4,6 +4,8 @@ import User from '../models/User';
 import Token from '../models/Token';
 import { generateToken } from '../utils/token';
 import { AuthEmail } from '../emails/AuthEmails';
+import { generateJWT } from '../utils/jwt';
+import { token } from 'morgan';
 
 export class AuthController {
     static createAccount = async (req: Request, res: Response) => {
@@ -86,7 +88,8 @@ export class AuthController {
             if (!isCorrectPassword) {
                 return res.status(404).json({ error: 'Credenciales inválidas' })
             }
-            res.send("Login Correcto")
+            const token = generateJWT({ id: user.id })
+            res.send(token)
 
         } catch (error) {
             res.status(500).json({ error: 'Hubo un error' })

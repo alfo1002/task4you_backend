@@ -38,5 +38,8 @@ npm i bcrypt
 # NODEMAILER
 npm i nodemailer
 
+# JSON WEB TOKEN
+npm i jsonwebtoken
+
 # Documentación:
 Mongoose: [text](https://mongoosejs.com/docs/schematypes.html)
