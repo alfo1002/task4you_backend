@@ -8,14 +8,16 @@ import { authenticate } from "../middleware/auth";
 
 const router = Router();
 
+router.use(authenticate)
+
 router.post('/',
-    authenticate,
     body('projectName').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }).withMessage('Debe tener al menos 5 caracteres'),
     body('clientName').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }),
     body('description').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }),
     handleInputErrors,
     ProjectController.createProject)
-router.get('/', ProjectController.getAllProjects)
+router.get('/',
+    ProjectController.getAllProjects)
 router.get('/:id',
     param('id').isMongoId().withMessage('Id no válido'),
     handleInputErrors,

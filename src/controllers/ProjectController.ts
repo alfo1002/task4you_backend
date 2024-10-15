@@ -20,7 +20,11 @@ export class ProjectController {
 
     static getAllProjects = async (req: Request, res: Response) => {
         try {
-            const projects = await Project.find()
+            const projects = await Project.find({
+                $or: [
+                    { manager: { $in: req.user.id } }
+                ]
+            })
             res.json(projects)
         } catch (e) {
             res.status(500).json({ msg: e.message })
@@ -32,6 +36,9 @@ export class ProjectController {
             const project = await Project.findById(req.params.id).populate('tasks')
             if (!project) {
                 return res.status(404).json({ msg: 'Proyecto no encontrado' })
+            }
+            if (project.manager.toString() !== req.user.id) {
+                return res.status(401).json({ msg: 'No autorizado' })
             }
             res.json(project)
         } catch (e) {
@@ -46,6 +53,11 @@ export class ProjectController {
             if (!project) {
                 return res.status(404).json({ msg: 'Proyecto no encontrado' })
             }
+
+            if (project.manager.toString() !== req.user.id) {
+                return res.status(401).json({ msg: 'Solo el manager puede actualizar un proyecto' })
+            }
+
             await project.save()
             res.send('Proyecto actualizado')
         } catch (e) {
@@ -60,6 +72,11 @@ export class ProjectController {
             if (!project) {
                 return res.status(404).json({ msg: 'Proyecto no encontrado' })
             }
+
+            if (project.manager.toString() !== req.user.id) {
+                return res.status(401).json({ msg: 'Solo el manager puede eliminar un proyecto' })
+            }
+
             await project.deleteOne()
             res.send('Proyecto eliminado')
         } catch (e) {
