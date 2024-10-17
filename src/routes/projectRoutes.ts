@@ -5,6 +5,7 @@ import { handleInputErrors } from "../middleware/validation";
 import { TaskController } from "../controllers/TaskController";
 import { validateProjectExists } from "../middleware/projects";
 import { authenticate } from "../middleware/auth";
+import { TeamMemberController } from "../controllers/TeamController";
 
 const router = Router();
 
@@ -79,6 +80,14 @@ router.post('/:projectId/tasks/:taskId/status',
         .notEmpty().withMessage('Campo Obligatorio'),
     handleInputErrors,
     TaskController.updateTaskStatus
+)
+
+/** Routes for teams */
+router.post('/:projectId/team/find',
+    body('email')
+        .isEmail().toLowerCase().withMessage('Email no válido'),
+    handleInputErrors,
+    TeamMemberController.findMemberByEmail
 )
 
 export default router
