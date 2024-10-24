@@ -6,6 +6,7 @@ import { TaskController } from "../controllers/TaskController";
 import { validateProjectExists } from "../middleware/projects";
 import { authenticate } from "../middleware/auth";
 import { TeamMemberController } from "../controllers/TeamController";
+import { hasAuthorization } from "../middleware/task";
 
 const router = Router();
 
@@ -39,6 +40,7 @@ router.delete('/:id',
 router.param('projectId', validateProjectExists)
 
 router.post('/:projectId/tasks',
+    hasAuthorization,
     //validateProjectExists,
     body('name').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }).withMessage('Debe tener al menos 5 caracteres'),
     body('description').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }).withMessage('Debe tener al menos 5 caracteres'),
@@ -59,6 +61,7 @@ router.get('/:projectId/tasks/:taskId',
 )
 
 router.put('/:projectId/tasks/:taskId',
+    hasAuthorization,
     //validateProjectExists,
     param('taskId').isMongoId().withMessage('Id no válido'),
     body('name').notEmpty().withMessage('Campo Obligatorio').isLength({ min: 5 }).withMessage('Debe tener al menos 5 caracteres'),
@@ -68,6 +71,7 @@ router.put('/:projectId/tasks/:taskId',
 )
 
 router.delete('/:projectId/tasks/:taskId',
+    hasAuthorization,
     //validateProjectExists,
     param('taskId').isMongoId().withMessage('Id no válido'),
     handleInputErrors,
@@ -99,6 +103,7 @@ router.post('/:projectId/team',
     TeamMemberController.addMemberById
 )
 router.delete('/:projectId/team/:userId',
+    hasAuthorization,
     param('userId')
         .isMongoId().withMessage('Id no válido'),
     handleInputErrors,
