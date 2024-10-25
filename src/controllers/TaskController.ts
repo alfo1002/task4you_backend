@@ -90,6 +90,11 @@ export class TaskController {
             }
             const { status } = req.body
             task.status = status
+            if (status === 'completed') {
+                task.completedBy = req.user.id
+            } else {
+                task.completedBy = null
+            }
             await task.save()
             res.send('Estado de Tarea Actualizado Correctamente')
         } catch (error) {
