@@ -8,6 +8,7 @@
         "target": "ESNext",
         "moduleResolution": "NodeNext",
         "module": "NodeNext",
+        "skipLibCheck": true,
         "strict": false,
         "sourceMap": true,
         "esModuleInterop": true,
